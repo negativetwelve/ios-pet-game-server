@@ -1,4 +1,3 @@
-Basic Rails App
+# Pets Alliance
 
-Includes:
-* User Authentication
+# JSON API

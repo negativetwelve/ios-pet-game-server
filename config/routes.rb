@@ -1,9 +1,14 @@
 App::Application.routes.draw do
+  root to: 'pages#home'
+
+  namespace :api, defaults: {format: 'json'} do
+    namespace :v1 do
+      match 'iphone', to: 'sessions#new', via: :get
+    end
+  end
 
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
-  
-  root to: 'pages#home'
 
   match '/signup',  to: 'users#new'
   match '/signin',  to: 'sessions#new'

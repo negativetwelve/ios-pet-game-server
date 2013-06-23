@@ -3,7 +3,8 @@ App::Application.routes.draw do
 
   namespace :api, defaults: {format: 'json'} do
     namespace :v1 do
-      match 'iphone', to: 'sessions#new', via: :get
+      match 'iphone', to: 'sessions#mobile', via: :get
+      match 'account/create', to: 'sessions#create', via: :post
     end
   end
 

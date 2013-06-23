@@ -8,4 +8,10 @@ module ApplicationHelper
       "#{base_title} | #{page_title}"
     end
   end
+
+  def decrypt(message)
+    encryption_key = 'IQPRZUDGWWCGVGHTKHRPEQAYPPAQXASH'
+    decrypted_message = AESCrypt.decrypt(message, encryption_key)
+  end
 end
+

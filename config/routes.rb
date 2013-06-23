@@ -5,6 +5,7 @@ App::Application.routes.draw do
     namespace :v1 do
       match 'iphone', to: 'sessions#mobile', via: :get
       match 'account/create', to: 'sessions#create', via: :post
+      match 'account/login', to: 'sessions#new', via: :post
     end
   end
 

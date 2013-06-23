@@ -6,7 +6,21 @@ module Api
       respond_to :json
 
       def new
-
+        password = decrypt(params[:user][:password])
+        email = decrypt(params[:user][:email])
+        user = User.find_by_email(email.downcase)
+        if user && user.authenticate(password)
+          if user.app_id == params[:user][:app_id]
+            render json: user.to_json
+          else
+            user.app_id = params[:user][:app_id]
+            if user.save
+              render json: user.to_json
+            else
+              render json: {error: {code: 1, reason: 'cannot save user'}}
+            end
+          end
+        end
       end
 
       def create

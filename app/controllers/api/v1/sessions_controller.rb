@@ -23,6 +23,23 @@ module Api
         end
       end
 
+      def check_username
+        if params[:username].length > 50
+          render json: {error: {code: 4, reason: 'Sorry! Username must be less than 50 characters.'}}
+          return
+        end
+        if params[:username].length < 3
+          render json: {error: {code: 4, reason: 'Sorry! Username must be more than 3 characters.'}}
+          return
+        end
+        user = User.find_by_username(params[:username])
+        if user
+          render json: {error: {code: 3, reason: 'Sorry! That username is taken.'}}
+        else
+          render json: {success: {code: 3, reason: 'Success! That username is available!', username: params[:username]}}
+        end
+      end
+
       def create
         params[:user][:password] = decrypt(params[:user][:password])
         params[:user][:password_confirmation] = decrypt(params[:user][:password_confirmation])

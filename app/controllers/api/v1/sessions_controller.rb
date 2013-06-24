@@ -25,18 +25,18 @@ module Api
 
       def check_username
         if params[:username].length > 50
-          render json: {error: {code: 4, reason: 'Sorry! Username must be less than 50 characters.'}}
+          render json: {error: {code: 4, reason: 'Sorry! Username must be less than 50 characters.'}}, status: 422
           return
         end
         if params[:username].length < 3
-          render json: {error: {code: 4, reason: 'Sorry! Username must be more than 3 characters.'}}
+          render json: {error: {code: 4, reason: 'Sorry! Username must be more than 3 characters.'}}, status: 422
           return
         end
-        user = User.find_by_username(params[:username])
+        user = User.find_by_username(params[:username].downcase)
         if user
-          render json: {error: {code: 3, reason: 'Sorry! That username is taken.'}}
+          render json: {error: {code: 3, reason: 'Sorry! That username is taken.'}}, status: 422
         else
-          render json: {success: {code: 3, reason: 'Success! That username is available!', username: params[:username]}}
+          render json: {success: {code: 3, reason: 'Success! That username is available!', username: params[:username]}}, status: 200
         end
       end
 
@@ -44,11 +44,23 @@ module Api
         params[:user][:password] = decrypt(params[:user][:password])
         params[:user][:password_confirmation] = decrypt(params[:user][:password_confirmation])
         params[:user][:email] = decrypt(params[:user][:email])
-        user = User.create(params[:user])
+        if params[:user][:password].length < 6
+          render json: {error: {code: 5, reason: 'Sorry! Password must be at least 6 characters.'}}, status: 422
+          return
+        end
+        begin
+          user = User.create!(params[:user])
+        rescue ActiveRecord::RecordInvalid => invalid
+          message = invalid.record.errors
+          puts message
+          message = message.map { |k, v| "#{k} #{v}" }.to_sentence.capitalize.gsub('_', ' ')
+          render json: {error: {code: 2, reason: message}}, status: 422
+          return
+        end
         if user
           render json: user.to_json
         else
-          render json: {error: 2, reason: 'error idk'}
+          render json: {error: {code: 2, reason: 'error'}}, status: 422
         end
       end
 

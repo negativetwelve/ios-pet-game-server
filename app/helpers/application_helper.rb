@@ -10,8 +10,12 @@ module ApplicationHelper
   end
 
   def decrypt(message)
-    encryption_key = 'IQPRZUDGWWCGVGHTKHRPEQAYPPAQXASH'
-    decrypted_message = AESCrypt.decrypt(message, encryption_key)
+    if message.length > 0
+      encryption_key = 'IQPRZUDGWWCGVGHTKHRPEQAYPPAQXASH'
+      decrypted_message = AESCrypt.decrypt(message, encryption_key)
+    else
+      ''
+    end
   end
 end
 

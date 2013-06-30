@@ -12,12 +12,27 @@ class User < ActiveRecord::Base
   validates :password, length: { minimum: 6 }, if: :password_digest_changed?
   validates :password_confirmation, presence: true, if: :password_digest_changed?
 
+  has_many :pets
+
   def to_json
     return {
       user: {
-        email: email,
+        username: username,
+        character: character,
+        skill_level: skill_level,
+        money: money,
+        money_rate: money_rate,
+        bank: bank,
+        energy: energy,
+        energy_rate: energy_rate,
       }
-    }.to_json
+    }
+  end
+
+  def pets_to_json
+    return {
+      pets: pets.collect {|pet| pet.to_json},
+    }
   end
 
   private

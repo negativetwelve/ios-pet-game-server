@@ -11,7 +11,32 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130619202820) do
+ActiveRecord::Schema.define(:version => 20130630070719) do
+
+  create_table "pets", :force => true do |t|
+    t.string   "name"
+    t.string   "nickname"
+    t.string   "type"
+    t.integer  "level",                :default => 1
+    t.integer  "experience",           :default => 0
+    t.integer  "experience_rate",      :default => 0
+    t.integer  "attack",               :default => 0
+    t.integer  "attack_rate",          :default => 0
+    t.integer  "special_attack",       :default => 0
+    t.integer  "special_attack_rate",  :default => 0
+    t.integer  "defense",              :default => 0
+    t.integer  "defense_rate",         :default => 0
+    t.integer  "special_defense",      :default => 0
+    t.integer  "special_defense_rate", :default => 0
+    t.integer  "speed",                :default => 0
+    t.integer  "speed_rate",           :default => 0
+    t.integer  "catch_rate",           :default => 0
+    t.integer  "user_id"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
+  add_index "pets", ["user_id", "created_at"], :name => "index_pets_on_user_id_and_created_at"
 
   create_table "users", :force => true do |t|
     t.string   "username"
@@ -21,6 +46,12 @@ ActiveRecord::Schema.define(:version => 20130619202820) do
     t.boolean  "admin",           :default => false
     t.string   "app_id"
     t.string   "character"
+    t.integer  "skill_level",     :default => 1
+    t.integer  "money",           :default => 0
+    t.integer  "bank",            :default => 0
+    t.integer  "money_rate",      :default => 0
+    t.integer  "energy",          :default => 0
+    t.integer  "energy_rate",     :default => 0
     t.datetime "created_at",                         :null => false
     t.datetime "updated_at",                         :null => false
   end

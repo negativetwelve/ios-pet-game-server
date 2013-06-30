@@ -11,11 +11,11 @@ module Api
         user = User.find_by_email(email.downcase)
         if user && user.authenticate(password)
           if user.app_id == params[:user][:app_id]
-            render json: user.to_json
+            render json: {user: user.to_json[:user], pets: user.pets_to_json[:pets]}
           else
             user.app_id = params[:user][:app_id]
             if user.save
-              render json: user.to_json
+              render json: {user: user.to_json[:user], pets: user.pets_to_json[:pets]}
             else
               render json: {error: {code: 1, reason: 'cannot save user'}}
             end
@@ -50,6 +50,8 @@ module Api
         end
         begin
           user = User.create!(params[:user])
+          pet = Pet.create!(params[:pet])
+          user.pets << pet
         rescue ActiveRecord::RecordInvalid => invalid
           message = invalid.record.errors
           puts message
@@ -58,7 +60,7 @@ module Api
           return
         end
         if user
-          render json: user.to_json
+          render json: {user: user.to_json[:user], pets: user.pets_to_json[:pets]}
         else
           render json: {error: {code: 2, reason: 'error'}}, status: 422
         end
@@ -75,11 +77,11 @@ module Api
         user = User.find_by_email(email.downcase)
         if user && user.authenticate(password)
           if user.app_id == params[:app_id]
-            render json: user.to_json
+            render json: {user: user.to_json[:user], pets: user.pets_to_json[:pets]}
           else
             user.app_id = params[:app_id]
             if user.save
-              render json: user.to_json
+              render json: {user: user.to_json[:user], pets: user.pets_to_json[:pets]}
             else
               render json: {error: {code: 1, reason: 'cannot save user'}}
             end

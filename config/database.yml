@@ -31,4 +31,3 @@ test:
   database: petsalliance_test<%= ENV['TEST_ENV_NUMBER'] %>
   username: mark
   password:
-

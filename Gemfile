@@ -6,6 +6,7 @@ gem 'jquery-rails', '2.0.2'
 gem 'pg', '0.12.2'
 gem 'bcrypt-ruby', '3.0.1'
 gem 'aescrypt'
+gem 'newrelic_rpm'
 
 group :development, :test do
   gem 'rspec-rails', '2.11.0'

@@ -17,9 +17,11 @@ module Api
             if user.save
               render json: {user: user.to_json[:user], pets: user.pets_to_json[:pets]}
             else
-              render json: {error: {code: 1, reason: 'cannot save user'}}
+              render json: {error: {code: 1, reason: 'cannot save user'}}, status: 422
             end
           end
+        else
+          render json: {error: {code: 2, reason: 'Username and password are invalid.'}}, status: 422
         end
       end
 
@@ -54,7 +56,6 @@ module Api
           user.pets << pet
         rescue ActiveRecord::RecordInvalid => invalid
           message = invalid.record.errors
-          puts message
           message = message.map { |k, v| "#{k} #{v}" }.to_sentence.capitalize.gsub('_', ' ')
           render json: {error: {code: 2, reason: message}}, status: 422
           return

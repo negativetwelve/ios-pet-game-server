@@ -7,14 +7,14 @@ class Pet < ActiveRecord::Base
 
   def to_json
     return {
-        name: name,
-        level: level,
-        experience: experience,
-        attack: attack,
-        special_attack: special_attack,
-        defense: defense,
-        special_defense: special_defense,
-        speed: speed,
-      }
+      name: name,
+      level: level,
+      experience: experience,
+      attack: attack,
+      special_attack: special_attack,
+      defense: defense,
+      special_defense: special_defense,
+      speed: speed,
+    }
   end
 end

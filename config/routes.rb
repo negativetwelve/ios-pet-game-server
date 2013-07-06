@@ -7,6 +7,8 @@ App::Application.routes.draw do
       match 'account/create', to: 'sessions#create', via: :post
       match 'account/login', to: 'sessions#new', via: :post
       match 'account/check', to: 'sessions#check_username', via: :post
+
+      match 'battles', to: 'battles#index', via: :get
     end
   end
 

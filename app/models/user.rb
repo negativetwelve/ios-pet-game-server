@@ -14,25 +14,25 @@ class User < ActiveRecord::Base
 
   has_many :pets
 
+  def self.to_json(users)
+    return users.collect {|user| user.to_json}
+  end
+
   def to_json
     return {
-      user: {
-        username: username,
-        character: character,
-        skill_level: skill_level,
-        money: money,
-        money_rate: money_rate,
-        bank: bank,
-        energy: energy,
-        energy_rate: energy_rate,
-      }
+      username: username,
+      character: character,
+      skill_level: skill_level,
+      money: money,
+      money_rate: money_rate,
+      bank: bank,
+      energy: energy,
+      energy_rate: energy_rate,
     }
   end
 
   def pets_to_json
-    return {
-      pets: pets.collect {|pet| pet.to_json},
-    }
+    return pets.collect {|pet| pet.to_json}
   end
 
   private

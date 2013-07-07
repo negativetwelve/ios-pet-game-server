@@ -5,7 +5,7 @@ module Api
 
       def index
         users = User.all
-        render json: {users: User.to_json(users)}
+        render json: {users: User.to_json(users.shuffle)}
       end
     end
   end

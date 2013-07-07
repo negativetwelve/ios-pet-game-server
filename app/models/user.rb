@@ -28,6 +28,7 @@ class User < ActiveRecord::Base
       bank: bank,
       energy: energy,
       energy_rate: energy_rate,
+      user_pets: pets_to_json,
     }
   end
 

@@ -10,6 +10,8 @@ class Pet < ActiveRecord::Base
       name: name,
       level: level,
       experience: experience,
+      curr_hp: curr_hp,
+      max_hp: max_hp,
       attack: attack,
       special_attack: special_attack,
       defense: defense,

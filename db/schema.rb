@@ -11,7 +11,23 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130630070719) do
+ActiveRecord::Schema.define(:version => 20130717060206) do
+
+  create_table "battles", :force => true do |t|
+    t.integer  "user_id"
+    t.integer  "opponent_id"
+    t.integer  "winner_id"
+    t.integer  "loser_id"
+    t.integer  "money_transferred"
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.boolean  "finished",          :default => false
+  end
+
+  add_index "battles", ["loser_id", "created_at"], :name => "index_battles_on_loser_id_and_created_at"
+  add_index "battles", ["opponent_id", "created_at"], :name => "index_battles_on_opponent_id_and_created_at"
+  add_index "battles", ["user_id", "created_at"], :name => "index_battles_on_user_id_and_created_at"
+  add_index "battles", ["winner_id", "created_at"], :name => "index_battles_on_winner_id_and_created_at"
 
   create_table "pets", :force => true do |t|
     t.string   "name"
@@ -34,6 +50,8 @@ ActiveRecord::Schema.define(:version => 20130630070719) do
     t.integer  "user_id"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+    t.integer  "curr_hp",              :default => 0
+    t.integer  "max_hp",               :default => 0
   end
 
   add_index "pets", ["user_id", "created_at"], :name => "index_pets_on_user_id_and_created_at"
@@ -43,17 +61,24 @@ ActiveRecord::Schema.define(:version => 20130630070719) do
     t.string   "email"
     t.string   "password_digest"
     t.string   "remember_token"
-    t.boolean  "admin",           :default => false
+    t.boolean  "admin",             :default => false
     t.string   "app_id"
     t.string   "character"
-    t.integer  "skill_level",     :default => 1
-    t.integer  "money",           :default => 0
-    t.integer  "bank",            :default => 0
-    t.integer  "money_rate",      :default => 0
-    t.integer  "energy",          :default => 0
-    t.integer  "energy_rate",     :default => 0
-    t.datetime "created_at",                         :null => false
-    t.datetime "updated_at",                         :null => false
+    t.integer  "skill_level",       :default => 1
+    t.integer  "money",             :default => 0
+    t.integer  "bank",              :default => 0
+    t.integer  "money_rate",        :default => 0
+    t.integer  "energy",            :default => 0
+    t.integer  "energy_rate",       :default => 0
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.boolean  "in_battle",         :default => false
+    t.integer  "wins",              :default => 0
+    t.integer  "losses",            :default => 0
+    t.integer  "passive_wins",      :default => 0
+    t.integer  "passive_losses",    :default => 0
+    t.integer  "run_aways",         :default => 0
+    t.integer  "passive_run_aways", :default => 0
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

@@ -78,11 +78,20 @@ module Api
         user = User.find_by_email(email.downcase)
         if user && user.authenticate(password)
           if user.app_id == params[:app_id]
-            render json: {user: user.to_json, pets: user.pets_to_json}
+            if user.in_battle
+              @battle = user.battles.where(finished: false).first
+              render json: {user: user.to_json, pets: user.pets_to_json, opponent: @battle.opponent.to_json, battle: @battle.to_json}
+            else
+              render json: {user: user.to_json, pets: user.pets_to_json}
+            end
           else
             user.app_id = params[:app_id]
             if user.save
-              render json: {user: user.to_json, pets: user.pets_to_json}
+              if user.in_battle
+                render json: {user: user.to_json, pets: user.pets_to_json, opponent: @battle.opponent.to_json, battle: @battle.to_json}
+              else
+                render json: {user: user.to_json, pets: user.pets_to_json}
+              end
             else
               render json: {error: {code: 1, reason: 'cannot save user'}}
             end

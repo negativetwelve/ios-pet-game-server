@@ -9,6 +9,11 @@ App::Application.routes.draw do
       match 'account/check', to: 'sessions#check_username', via: :post
 
       match 'battles', to: 'battles#index', via: :get
+      match 'battle/start', to: 'battles#start', via: :post
+      match 'battle/attack', to: 'battles#attack', via: :post
+      match 'battle/run', to: 'battles#run', via: :post
+      match 'battle/item', to: 'battles#item', via: :post
+      match 'battle/switch', to: 'battles#switch', via: :post
     end
   end
 

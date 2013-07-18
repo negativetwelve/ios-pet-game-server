@@ -14,7 +14,8 @@ module Api
 
       def start
         @user = User.where(id: params[:user_id]).first
-        @opponent = User.where(id: params[:opponent_id]).first
+        opponent_user = User.where(id: params[:opponent_id]).first
+        @opponent = Opponent.copy(opponent_user)
         @battle = Battle.start(@user, @opponent)
         if @battle
           render json: {battle: @battle.to_json}

@@ -1,4 +1,8 @@
+require 'pet_battle_features'
+
 class Pet < ActiveRecord::Base
+  include PetBattleFeatures
+
   attr_accessible :name
 
   validates :name, presence: true

@@ -1,4 +1,8 @@
+require 'user_battle_features'
+
 class User < ActiveRecord::Base
+  include UserBattleFeatures
+
   attr_accessible :username, :email, :password, :password_confirmation, :app_id, :character
   has_secure_password
 
@@ -46,6 +50,19 @@ class User < ActiveRecord::Base
 
   def pets_to_json
     return pets.collect {|pet| pet.to_json}
+  end
+
+  def to_opponent
+    return {
+      username: username,
+      character: character,
+      skill_level: skill_level,
+      money: money,
+      bank: bank,
+      money_rate: money_rate,
+      energy: energy,
+      energy_rate: energy_rate,
+    }
   end
 
   private

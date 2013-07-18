@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130717060206) do
+ActiveRecord::Schema.define(:version => 20130718064818) do
 
   create_table "battles", :force => true do |t|
     t.integer  "user_id"
@@ -28,6 +28,46 @@ ActiveRecord::Schema.define(:version => 20130717060206) do
   add_index "battles", ["opponent_id", "created_at"], :name => "index_battles_on_opponent_id_and_created_at"
   add_index "battles", ["user_id", "created_at"], :name => "index_battles_on_user_id_and_created_at"
   add_index "battles", ["winner_id", "created_at"], :name => "index_battles_on_winner_id_and_created_at"
+
+  create_table "opponent_pets", :force => true do |t|
+    t.string   "name"
+    t.string   "nickname"
+    t.string   "type"
+    t.integer  "level",                :default => 1
+    t.integer  "experience",           :default => 0
+    t.integer  "experience_rate",      :default => 0
+    t.integer  "attack",               :default => 0
+    t.integer  "attack_rate",          :default => 0
+    t.integer  "special_attack",       :default => 0
+    t.integer  "special_attack_rate",  :default => 0
+    t.integer  "defense",              :default => 0
+    t.integer  "defense_rate",         :default => 0
+    t.integer  "special_defense",      :default => 0
+    t.integer  "special_defense_rate", :default => 0
+    t.integer  "speed",                :default => 0
+    t.integer  "speed_rate",           :default => 0
+    t.integer  "catch_rate",           :default => 0
+    t.integer  "curr_hp",              :default => 0
+    t.integer  "max_hp",               :default => 0
+    t.integer  "opponent_id"
+    t.datetime "created_at",                          :null => false
+    t.datetime "updated_at",                          :null => false
+  end
+
+  add_index "opponent_pets", ["opponent_id", "created_at"], :name => "index_opponent_pets_on_opponent_id_and_created_at"
+
+  create_table "opponents", :force => true do |t|
+    t.integer  "skill_level", :default => 1
+    t.integer  "money",       :default => 0
+    t.integer  "bank",        :default => 0
+    t.integer  "money_rate",  :default => 0
+    t.integer  "energy",      :default => 0
+    t.integer  "energy_rate", :default => 0
+    t.datetime "created_at",                 :null => false
+    t.datetime "updated_at",                 :null => false
+    t.string   "username"
+    t.string   "character"
+  end
 
   create_table "pets", :force => true do |t|
     t.string   "name"

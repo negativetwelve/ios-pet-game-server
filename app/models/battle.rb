@@ -2,9 +2,9 @@ class Battle < ActiveRecord::Base
   attr_accessible :money_transferred, :user_id, :opponent_id, :finished
 
   belongs_to :user, class_name: 'User', foreign_key: 'user_id', validate: true
-  belongs_to :opponent, class_name: 'User', foreign_key: 'opponent_id', validate: true
-  belongs_to :winner, class_name: 'User', foreign_key: 'winner_id', validate: true
-  belongs_to :loser, class_name: 'User', foreign_key: 'loser_id', validate: true
+  belongs_to :opponent, class_name: 'Opponent', foreign_key: 'opponent_id', validate: true
+  belongs_to :winner, polymorphic: true, foreign_key: 'winner_id', validate: true
+  belongs_to :loser, polymorphic: true, foreign_key: 'loser_id', validate: true
 
   def to_json
     return {

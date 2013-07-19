@@ -10,8 +10,8 @@ class Battle < ActiveRecord::Base
     return {
       encid: id,
       finished: finished,
-      user: user,
-      opponent: opponent,
+      user: user.to_json,
+      opponent: opponent.to_json,
       winner_id: winner_id,
       loser_id: loser_id,
     }

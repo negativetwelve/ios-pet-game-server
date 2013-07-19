@@ -11,9 +11,24 @@ class Pet < ActiveRecord::Base
 
   def to_json
     return {
+      encid: id,
       name: name,
       level: level,
       experience: experience,
+      curr_hp: curr_hp,
+      max_hp: max_hp,
+      attack: attack,
+      special_attack: special_attack,
+      defense: defense,
+      special_defense: special_defense,
+      speed: speed,
+    }
+  end
+
+  def to_opponent_pet
+    return {
+      name: name,
+      level: level,
       curr_hp: curr_hp,
       max_hp: max_hp,
       attack: attack,

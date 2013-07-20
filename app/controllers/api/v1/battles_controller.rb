@@ -8,10 +8,6 @@ module Api
         render json: {users: User.to_json(users)}
       end
 
-      def create
-        
-      end
-
       def start
         @user = User.where(id: params[:user_id]).first
         opponent_user = User.where(id: params[:opponent_id]).first

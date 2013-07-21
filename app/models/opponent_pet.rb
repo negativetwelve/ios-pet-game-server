@@ -9,8 +9,8 @@ class OpponentPet < ActiveRecord::Base
 
   def self.copy(opponent_pet)
     opp_pet = OpponentPet.new(opponent_pet.to_opponent_pet)
-    if opp_pet
-      opp_pet.save
+    opp_pet.pet_id = opponent_pet.id
+    if opp_pet && opp_pet.save
       return opp_pet
     else
       return false
@@ -29,7 +29,14 @@ class OpponentPet < ActiveRecord::Base
       defense: defense,
       special_defense: special_defense,
       speed: speed,
+
+      attacks: attacks,
     }
+  end
+
+  def attacks
+    original_pet = Pet.find(pet_id)
+    original_pet.attacks
   end
 
 end

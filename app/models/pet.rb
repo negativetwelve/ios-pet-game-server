@@ -8,6 +8,8 @@ class Pet < ActiveRecord::Base
   validates :name, presence: true
 
   belongs_to :user
+  has_many :pet_attacks
+  has_many :attacks, through: :pet_attacks
 
   def to_json
     return {
@@ -22,11 +24,14 @@ class Pet < ActiveRecord::Base
       defense: defense,
       special_defense: special_defense,
       speed: speed,
+
+      attacks: attacks,
     }
   end
 
   def to_opponent_pet
     return {
+      id: id,
       name: name,
       level: level,
       curr_hp: curr_hp,
@@ -38,4 +43,18 @@ class Pet < ActiveRecord::Base
       speed: speed,
     }
   end
+
+  def attacks
+    pet_attacks.map { |pa| {
+        encid: pa.attack.id,
+        name: pa.attack.name,
+        pp: pa.pp,
+      }
+    }
+  end
+
+  def learn(attack)
+    pet_attacks.create(attack_id: attack.id, pp: attack.pp)
+  end
+
 end

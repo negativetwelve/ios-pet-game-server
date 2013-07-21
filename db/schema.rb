@@ -11,7 +11,17 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130718064818) do
+ActiveRecord::Schema.define(:version => 20130721040426) do
+
+  create_table "attacks", :force => true do |t|
+    t.string   "name"
+    t.integer  "pp"
+    t.integer  "power"
+    t.integer  "accuracy"
+    t.string   "category"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
 
   create_table "battles", :force => true do |t|
     t.integer  "user_id"
@@ -52,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20130718064818) do
     t.integer  "opponent_id"
     t.datetime "created_at",                          :null => false
     t.datetime "updated_at",                          :null => false
+    t.integer  "pet_id"
   end
 
   add_index "opponent_pets", ["opponent_id", "created_at"], :name => "index_opponent_pets_on_opponent_id_and_created_at"
@@ -68,6 +79,17 @@ ActiveRecord::Schema.define(:version => 20130718064818) do
     t.string   "username"
     t.string   "character"
   end
+
+  create_table "pet_attacks", :force => true do |t|
+    t.integer  "pet_id"
+    t.integer  "attack_id"
+    t.integer  "pp"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "pet_attacks", ["attack_id", "created_at"], :name => "index_pet_attacks_on_attack_id_and_created_at"
+  add_index "pet_attacks", ["pet_id", "created_at"], :name => "index_pet_attacks_on_pet_id_and_created_at"
 
   create_table "pets", :force => true do |t|
     t.string   "name"

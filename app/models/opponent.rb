@@ -10,7 +10,7 @@ class Opponent < ActiveRecord::Base
   def self.copy(opponent_user)
     opponent = Opponent.new(opponent_user.to_opponent)
     opponent_user.pets.each do |pet|
-      opponent.opponent_pets << OpponentPet.new(pet.to_opponent_pet)
+      opponent.opponent_pets << OpponentPet.copy(pet)
     end
     if opponent
       opponent.save

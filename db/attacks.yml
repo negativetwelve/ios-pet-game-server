@@ -1,0 +1,11 @@
+- name: Surf
+  category: Special
+  pp: 15
+  power: 95
+  accuracy: 100
+
+- name: Tackle
+  category: Physical
+  pp: 35
+  power: 50
+  accuracy: 100

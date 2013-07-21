@@ -79,7 +79,7 @@ module Api
         if user && user.authenticate(password)
           if user.app_id == params[:app_id]
             if user.in_battle
-              @battle = user.battles.where(finished: false).first
+              @battle = user.battles.where(finished: false).last
               render json: {user: @battle.user.to_json, battle: @battle.to_json}
             else
               render json: {user: user.to_json}
@@ -88,6 +88,7 @@ module Api
             user.app_id = params[:app_id]
             if user.save
               if user.in_battle
+                @battle = user.battles.where(finished: false).last
                 render json: {user: @battle.user.to_json, battle: @battle.to_json}
               else
                 render json: {user: user.to_json}

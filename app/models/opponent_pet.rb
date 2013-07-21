@@ -3,7 +3,7 @@ require 'pet_battle_features'
 class OpponentPet < ActiveRecord::Base
   include PetBattleFeatures
 
-  attr_accessible :name, :level, :curr_hp, :max_hp, :attack, :special_attack, :defense, :special_defense, :speed
+  attr_accessible :name, :level, :curr_hp, :max_hp, :attack, :special_attack, :defense, :special_defense, :speed, :pet_id
 
   belongs_to :opponent
 
@@ -35,7 +35,7 @@ class OpponentPet < ActiveRecord::Base
   end
 
   def attacks
-    original_pet = Pet.find(pet_id)
+    original_pet = Pet.find(self.pet_id)
     original_pet.attacks
   end
 

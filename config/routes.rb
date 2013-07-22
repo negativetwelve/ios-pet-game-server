@@ -18,6 +18,9 @@ App::Application.routes.draw do
       match 'battles/switch', to: 'battles#switch', via: :post
 
       match 'leaderboard/:category', to: 'leaderboard#index', via: :get
+
+      # remove this eventually
+      match 'heal', to: 'sessions#heal', via: :post
     end
   end
 

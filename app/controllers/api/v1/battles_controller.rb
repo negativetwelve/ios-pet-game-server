@@ -20,12 +20,22 @@ module Api
         end
       end
 
+      def attack
+        @battle = Battle.where(id: params[:battle_id]).first
+        @turn = Battle.make_turn(@battle, 'attack', params)
+        if @turn
+          render json: {turn: @turn.to_json}
+        else
+          render json: {error: {code: 9, reason: 'Error while processing turn.'}}
+        end
+      end
+
       def run
         @battle = Battle.where(id: params[:battle_id]).first
         if Battle.end(@battle)
-          render json: {success: {code: 7, reason: 'Battle successfully ended.'}}
+          render json: {success: {code: 7, reason: 'Successfully ran from battle.'}}
         else
-          render json: {error: {code: 8, reason: 'Could not end battle.'}}
+          render json: {error: {code: 8, reason: 'Could not run away.'}}
         end
       end
 

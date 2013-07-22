@@ -39,4 +39,18 @@ class OpponentPet < ActiveRecord::Base
     original_pet.attacks
   end
 
+  # Battle logic for attacks
+  def make_attack(user_pet, attack)
+    return {
+      type: "attack",
+      pet_id: id,
+      opponent_pet_id: user_pet.id,
+      pet_damage: 0,
+      opponent_pet_damage: 1,
+      pet_status_id: nil,
+      opponent_pet_status_id: nil,
+    }
+  end
+
+
 end

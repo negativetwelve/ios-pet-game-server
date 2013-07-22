@@ -34,7 +34,7 @@ class Pet < ActiveRecord::Base
       id: id,
       name: name,
       level: level,
-      curr_hp: curr_hp,
+      curr_hp: max_hp,  # Opponent always starts with full health.
       max_hp: max_hp,
       attack: attack,
       special_attack: special_attack,
@@ -55,6 +55,19 @@ class Pet < ActiveRecord::Base
 
   def learn(attack)
     pet_attacks.create(attack_id: attack.id, pp: attack.pp)
+  end
+
+  # Battle logic for attacks
+  def make_attack(opponent_pet, attack)
+    return {
+      type: "attack",
+      pet_id: id,
+      opponent_pet_id: opponent_pet.id,
+      pet_damage: 0,
+      opponent_pet_damage: 10,
+      pet_status_id: nil,
+      opponent_pet_status_id: nil,
+    }
   end
 
 end

@@ -5,6 +5,16 @@ module Api
 
       respond_to :json
 
+      # remove this
+      def heal
+        user = User.find(params[:user_id])
+        user.pets.each do |pet|
+          pet.curr_hp = pet.max_hp
+          pet.save
+        end
+        render json: {success: {code: 10, reason: "Successfully healed!"}}
+      end
+
       def new
         password = decrypt(params[:user][:password])
         email = decrypt(params[:user][:email])

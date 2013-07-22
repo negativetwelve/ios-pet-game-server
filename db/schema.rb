@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130721040426) do
+ActiveRecord::Schema.define(:version => 20130722051032) do
 
   create_table "attacks", :force => true do |t|
     t.string   "name"
@@ -22,6 +22,30 @@ ActiveRecord::Schema.define(:version => 20130721040426) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
   end
+
+  create_table "battle_actions", :force => true do |t|
+    t.integer  "turn_id"
+    t.integer  "user_id"
+    t.integer  "opponent_id"
+    t.integer  "pet_id"
+    t.integer  "opponent_pet_id"
+    t.string   "type"
+    t.integer  "attack_id"
+    t.integer  "pet_damage",             :default => 0
+    t.integer  "opponent_pet_damage",    :default => 0
+    t.integer  "pet_status_id"
+    t.integer  "opponent_pet_status_id"
+    t.boolean  "run_successful",         :default => false
+    t.integer  "item_id"
+    t.integer  "item_target_id"
+    t.integer  "switch_to_pet_id"
+    t.datetime "created_at",                                :null => false
+    t.datetime "updated_at",                                :null => false
+    t.string   "owner_type"
+    t.boolean  "battle_finished"
+  end
+
+  add_index "battle_actions", ["turn_id", "created_at"], :name => "index_battle_actions_on_turn_id_and_created_at"
 
   create_table "battles", :force => true do |t|
     t.integer  "user_id"
@@ -57,11 +81,11 @@ ActiveRecord::Schema.define(:version => 20130721040426) do
     t.integer  "speed",                :default => 0
     t.integer  "speed_rate",           :default => 0
     t.integer  "catch_rate",           :default => 0
-    t.integer  "curr_hp",              :default => 0
-    t.integer  "max_hp",               :default => 0
+    t.integer  "curr_hp",              :default => 20
+    t.integer  "max_hp",               :default => 20
     t.integer  "opponent_id"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
     t.integer  "pet_id"
   end
 
@@ -78,7 +102,10 @@ ActiveRecord::Schema.define(:version => 20130721040426) do
     t.datetime "updated_at",                 :null => false
     t.string   "username"
     t.string   "character"
+    t.integer  "user_id"
   end
+
+  add_index "opponents", ["user_id", "created_at"], :name => "index_opponents_on_user_id_and_created_at"
 
   create_table "pet_attacks", :force => true do |t|
     t.integer  "pet_id"
@@ -110,13 +137,21 @@ ActiveRecord::Schema.define(:version => 20130721040426) do
     t.integer  "speed_rate",           :default => 0
     t.integer  "catch_rate",           :default => 0
     t.integer  "user_id"
-    t.datetime "created_at",                          :null => false
-    t.datetime "updated_at",                          :null => false
-    t.integer  "curr_hp",              :default => 0
-    t.integer  "max_hp",               :default => 0
+    t.datetime "created_at",                           :null => false
+    t.datetime "updated_at",                           :null => false
+    t.integer  "curr_hp",              :default => 20
+    t.integer  "max_hp",               :default => 20
   end
 
   add_index "pets", ["user_id", "created_at"], :name => "index_pets_on_user_id_and_created_at"
+
+  create_table "turns", :force => true do |t|
+    t.integer  "battle_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "turns", ["battle_id", "created_at"], :name => "index_turns_on_battle_id_and_created_at"
 
   create_table "users", :force => true do |t|
     t.string   "username"

@@ -1,7 +1,7 @@
 module PetBattleFeatures
 
-  def test
-    p 'test'
+  def is_alive?
+    curr_hp > 0
   end
 
 end

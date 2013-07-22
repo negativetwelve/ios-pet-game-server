@@ -19,8 +19,8 @@ class CreateOpponentPets < ActiveRecord::Migration
       t.integer :speed_rate, default: 0
       t.integer :catch_rate, default: 0
 
-      t.integer :curr_hp, default: 0
-      t.integer :max_hp, default: 0
+      t.integer :curr_hp, default: 20
+      t.integer :max_hp, default: 20
 
       t.integer :opponent_id
 

@@ -1,5 +1,5 @@
 class Item < ActiveRecord::Base
-  # attr_accessible :title, :body
+  attr_accessible :name, :description, :category, :price, :can_sell, :in_battle, :in_store, :unlock_level
 
   def self.to_json(items)
     return items.collect{ |item| item.to_json }

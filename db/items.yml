@@ -10,6 +10,6 @@
   price: 100
   in_store: true
   in_battle: false
-  unlock_leve: 1
+  unlock_level: 1
   description: A set of blue armor that provides little protection from the elements.
   can_sell: true

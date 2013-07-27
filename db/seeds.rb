@@ -8,16 +8,29 @@
 attacks_seed_file = File.join(Rails.root, 'db', 'attacks.yml')
 attacks = YAML::load_file(attacks_seed_file)
 
-attacks.each do |new_attack|
-  attack = Attack.find_by_name(new_attack['name'])
-  if attack
-    puts "Already had attack: #{attack.name}."
-  else
-    attack = Attack.new(new_attack)
-    if attack.save
-      puts "Created attack: #{attack.name}."
+def load_from_yaml(filename)
+  file = File.join(Rails.root, 'db', filename)
+  return YAML::load_file(file)
+end
+
+def create_if_not_exists(cls, objects, attr)
+  objects.each do |new_obj|
+    obj = cls.where("#{attr}" => new_obj[attr]).first
+    if obj
+      puts "Already had #{cls}: #{new_obj[attr]}."
     else
-      puts "An error occurred while creating: #{new_attack['name']}."
+      obj = cls.new(new_obj)
+      if obj.save
+        puts "Created #{cls}: #{new_obj[attr]}."
+      else
+        puts "An error occurred while creating #{cls} #{new_obj[attr]}."
+      end
     end
   end
 end
+
+attacks = load_from_yaml('attacks.yml')
+create_if_not_exists(Attack, attacks, 'name')
+
+items = load_from_yaml('items.yml')
+create_if_not_exists(Item, items, 'name')

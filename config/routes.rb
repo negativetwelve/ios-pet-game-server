@@ -19,6 +19,8 @@ App::Application.routes.draw do
 
       match 'leaderboard/:category', to: 'leaderboard#index', via: :get
 
+      match 'items/index', to: 'items#index', via: :get
+
       # remove this eventually
       match 'heal', to: 'sessions#heal', via: :post
     end

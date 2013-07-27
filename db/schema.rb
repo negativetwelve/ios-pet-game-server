@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130722051032) do
+ActiveRecord::Schema.define(:version => 20130727093149) do
 
   create_table "attacks", :force => true do |t|
     t.string   "name"
@@ -62,6 +62,19 @@ ActiveRecord::Schema.define(:version => 20130722051032) do
   add_index "battles", ["opponent_id", "created_at"], :name => "index_battles_on_opponent_id_and_created_at"
   add_index "battles", ["user_id", "created_at"], :name => "index_battles_on_user_id_and_created_at"
   add_index "battles", ["winner_id", "created_at"], :name => "index_battles_on_winner_id_and_created_at"
+
+  create_table "items", :force => true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.integer  "category"
+    t.integer  "price"
+    t.boolean  "in_store"
+    t.boolean  "in_battle"
+    t.boolean  "can_sell"
+    t.integer  "unlock_level"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
+  end
 
   create_table "opponent_pets", :force => true do |t|
     t.string   "name"

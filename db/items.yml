@@ -1,0 +1,15 @@
+# CATEGORIES:
+# 1: Head Accessory
+# 2: Body Accessory
+# 3: General Accessories
+# 4: Healing Items
+# 5: Enhancing Items
+
+- name: Blue Armor
+  category: 2
+  price: 100
+  in_store: true
+  in_battle: false
+  unlock_leve: 1
+  description: A set of blue armor that provides little protection from the elements.
+  can_sell: true
